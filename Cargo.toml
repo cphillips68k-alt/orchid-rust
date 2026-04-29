@@ -2,7 +2,7 @@
 name = "orchid-kernel"
 version = "0.1.0"
 authors = ["orchid-rust"]
-edition = "2026"
+edition = "2021"
 publish = false
 
 [dependencies]
