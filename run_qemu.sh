@@ -7,7 +7,7 @@ cd "$SCRIPT_DIR"
 export CARGO_MANIFEST_DIR="$SCRIPT_DIR"
 export RUSTUP_TOOLCHAIN=nightly
 
-cargo +nightly bootimage
+cargo bootimage
 
 KERNEL_BIN="target/x86_64-blog_os/debug/bootimage-orchid-kernel.bin"
 if [[ ! -f "$KERNEL_BIN" ]]; then
