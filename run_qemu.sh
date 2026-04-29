@@ -5,8 +5,9 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 cd "$SCRIPT_DIR"
 
 export CARGO_MANIFEST_DIR="$SCRIPT_DIR"
-export RUSTUP_TOOLCHAIN=nightly
 
+cargo clean
+rm -f Cargo.lock
 cargo bootimage
 
 KERNEL_BIN="target/x86_64-blog_os/debug/bootimage-orchid-kernel.bin"
