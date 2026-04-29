@@ -4,7 +4,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 cd "$SCRIPT_DIR"
 
-cargo bootimage
+RUSTFLAGS="-Zjson-target-spec" cargo +nightly bootimage
 
 KERNEL_BIN="target/x86_64-blog_os/debug/bootimage-orchid-kernel.bin"
 if [[ ! -f "$KERNEL_BIN" ]]; then

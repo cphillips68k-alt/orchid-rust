@@ -45,25 +45,23 @@ The kernel uses a true preemptive scheduler with actual context switching. A tim
 ### Install dependencies
 
 ```bash
-rustup install stable
-rustup target add x86_64-unknown-none
+rustup install nightly
+rustup target add x86_64-unknown-none --toolchain nightly
 cargo install bootimage
 ```
 
 ### Build
 
 ```bash
-cargo bootimage
+RUSTFLAGS="-Zjson-target-spec" cargo +nightly bootimage
 ```
 
-### Run in QEMU
+Alternatively, use the provided script which handles this automatically:
 
 ```bash
 chmod +x run_qemu.sh
 ./run_qemu.sh
 ```
-
-This script builds the kernel image and launches QEMU with serial output redirected to the terminal.
 
 ## Development Notes
 
