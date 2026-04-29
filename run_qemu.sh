@@ -4,6 +4,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 cd "$SCRIPT_DIR"
 
+export CARGO_MANIFEST_DIR="$SCRIPT_DIR"
 export RUSTFLAGS="-Zjson-target-spec"
 export CARGO_BUILD_RUSTFLAGS="-Zjson-target-spec"
 export CARGO_TARGET_X86_64_BLOG_OS_RUSTFLAGS="-Zjson-target-spec"

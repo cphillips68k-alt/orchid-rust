@@ -1,5 +1,12 @@
 [build]
 target = "x86_64-blog_os.json"
+
+[env]
+RUSTFLAGS = "-Zjson-target-spec"
+CARGO_BUILD_RUSTFLAGS = "-Zjson-target-spec"
+CARGO_TARGET_X86_64_BLOG_OS_RUSTFLAGS = "-Zjson-target-spec"
+
+[target.x86_64-blog_os]
 rustflags = ["-Zjson-target-spec"]
 
 [target.x86_64-blog_os.dependencies]
