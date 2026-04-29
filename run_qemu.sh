@@ -10,8 +10,9 @@ cargo clean
 # 2. Build the image with the necessary RUSTFLAGS
 # We prefix the command with RUSTFLAGS so it's available to getrandom
 echo "Building kernel..."
-RUSTFLAGS='--cfg getrandom_backend="custom"' cargo bootimage
+RUSTFLAGS='--cfg getrandom_backend="custom"'
 
+ cargo bootimage
 # 3. Path check (Ensure this matches your actual target filename)
 KERNEL_BIN="target/x86_64-orchid_kernel/debug/bootimage-orchid-kernel.bin"
 
