@@ -1,5 +1,6 @@
 [build]
 target = "x86_64-blog_os.json"
+rustflags = ["-Zjson-target-spec"]
 
 [target.x86_64-blog_os.dependencies]
 bootloader = { version = "0.10.23", features = ["binary"] }
