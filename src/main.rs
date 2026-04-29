@@ -16,6 +16,7 @@ mod task;
 
 use bootloader::{entry_point, BootInfo};
 use console::kprintln;
+use getrandom::Error;
 
 entry_point!(kernel_main);
 
@@ -34,3 +35,14 @@ fn kernel_main(boot_info: &'static BootInfo) -> ! {
 
     kernel::run()
 }
+// A stub implementation for getrandom. 
+// You can implement actual entropy gathering here later.
+fn custom_getrandom(buf: &mut [u8]) -> Result<(), Error> {
+    // For now, just fill with zeros or return an error
+    for byte in buf.iter_mut() {
+        *byte = 0;
+    }
+    Ok(())
+}
+
+getrandom::register_custom_getrandom!(custom_getrandom);
