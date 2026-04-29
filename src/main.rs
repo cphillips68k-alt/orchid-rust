@@ -35,22 +35,23 @@ fn kernel_main(boot_info: &'static BootInfo) -> ! {
 
     kernel::run()
 }
-// A stub implementation for getrandom. 
-// You can implement actual entropy gathering here later.
-fn custom_getrandom(buf: &mut [u8]) -> Result<(), Error> {
+
+/* --- GETRANDOM STUBS --- */
+
+// Satisfies getrandom v0.2
 getrandom::register_custom_getrandom!(custom_getrandom_v02);
 fn custom_getrandom_v02(buf: &mut [u8]) -> Result<(), Error> {
     custom_fill(buf)
 }
 
-// For getrandom v0.3 and v0.4
-#[unsafe(no_mangle)]
-unsafe extern "Rust" fn __getrandom_v03_custom(dest: *mut u8, len: usize) -> Result<(), Error> {
+// Satisfies getrandom v0.3 and v0.4
+#[no_mangle]
+pub unsafe extern "Rust" fn __getrandom_v03_custom(dest: *mut u8, len: usize) -> Result<(), Error> {
     let slice = unsafe { core::slice::from_raw_parts_mut(dest, len) };
     custom_fill(slice)
 }
 
-// Shared implementation
+// Actual logic
 fn custom_fill(buf: &mut [u8]) -> Result<(), Error> {
     for byte in buf.iter_mut() {
         *byte = 0;
