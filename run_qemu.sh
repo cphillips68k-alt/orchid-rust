@@ -8,7 +8,7 @@ export RUSTFLAGS="-Zjson-target-spec"
 export CARGO_BUILD_RUSTFLAGS="-Zjson-target-spec"
 export CARGO_TARGET_X86_64_BLOG_OS_RUSTFLAGS="-Zjson-target-spec"
 
-cargo +nightly bootimage
+cargo +nightly -Zjson-target-spec bootimage
 
 KERNEL_BIN="target/x86_64-blog_os/debug/bootimage-orchid-kernel.bin"
 if [[ ! -f "$KERNEL_BIN" ]]; then
