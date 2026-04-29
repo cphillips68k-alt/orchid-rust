@@ -57,7 +57,7 @@ export CARGO_MANIFEST_DIR="$PWD"
 export RUSTFLAGS="-Zjson-target-spec"
 export CARGO_BUILD_RUSTFLAGS="-Zjson-target-spec"
 export CARGO_TARGET_X86_64_BLOG_OS_RUSTFLAGS="-Zjson-target-spec"
-cargo +nightly -Zjson-target-spec bootimage
+cargo +nightly -Zjson-target-spec bootimage -- -Zjson-target-spec
 ```
 
 Alternatively, use the provided script which handles this automatically:
