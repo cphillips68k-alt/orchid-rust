@@ -1,0 +1,24 @@
+[package]
+name = "orchid-kernel"
+version = "0.1.0"
+authors = ["orchid-rust"]
+edition = "2021"
+publish = false
+
+[dependencies]
+bootloader = { version = "0.10.23", features = ["binary"] }
+x86_64 = "0.21.10"
+spin = "0.9.6"
+uart_16550 = "0.2.13"
+volatile = "0.4.7"
+lazy_static = "1.4.0"
+linked_list_allocator = "0.9.1"
+
+[dev-dependencies]
+bootimage = "0.10.3"
+
+[profile.dev]
+panic = "abort"
+
+[profile.release]
+panic = "abort"
