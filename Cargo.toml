@@ -10,7 +10,7 @@ publish = false
 serde = { version = "=1.0.210", default-features = false, features = ["derive"] }
 serde_json = { version = "=1.0.128", default-features = false, features = ["alloc"] }
 bincode = { version = "2.0.0-rc.3", default-features = false, features = ["serde"] }
-
+bitvec = { version = "1.0", default-features = false, features = ["alloc"] }
 # No version or features here; we will force the version in the next step
 getrandom = "0.2" 
 
