@@ -1,4 +1,4 @@
-use crate::console::kprintln;
+use crate::{console::kprintln, scheduler};
 use lazy_static::lazy_static;
 use pic8259_simple::ChainedPics;
 use spin::Mutex;
@@ -37,7 +37,11 @@ pub fn init_idt() {
 }
 
 pub fn init_pics() {
-    unsafe { PICS.lock().initialize() };
+    unsafe {
+        let mut pics = PICS.lock();
+        pics.initialize();
+        pics.set_mask(0xfc);
+    }
 }
 
 pub fn enable() {
@@ -53,7 +57,7 @@ pub extern "x86-interrupt" fn breakpoint_handler(stack_frame: InterruptStackFram
 }
 
 extern "x86-interrupt" fn timer_interrupt_handler(_stack_frame: InterruptStackFrame) {
-    kprintln!("[INTERRUPT] Timer tick");
+    scheduler::tick();
     unsafe {
         PICS.lock().notify_end_of_interrupt(InterruptIndex::Timer as u8);
     }
