@@ -2,7 +2,7 @@
 name = "orchid-kernel"
 version = "0.1.0"
 authors = ["orchid-rust"]
-edition = "2021"
+edition = "2026"
 publish = false
 
 [dependencies]
@@ -11,6 +11,9 @@ x86_64 = { version = "0.15", default-features = false, features = ["instructions
 spin = { version = "0.9", default-features = false }
 uart_16550 = { version = "0.2", default-features = false }
 volatile = { version = "0.5", default-features = false }
+
+# Pin serde to no_std explicitly for the whole dependency tree
+serde = { version = "1.0", default-features = false, features = ["derive"] }
 
 [dev-dependencies]
 bootimage = "0.10"
