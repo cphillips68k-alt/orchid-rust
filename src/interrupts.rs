@@ -1,4 +1,5 @@
-use crate::{console::kprintln, scheduler};
+use core::arch::asm;
+use crate::{console::kprintln};
 use lazy_static::lazy_static;
 use pic8259_simple::ChainedPics;
 use spin::Mutex;
@@ -56,10 +57,56 @@ pub extern "x86-interrupt" fn breakpoint_handler(stack_frame: InterruptStackFram
     kprintln!("[INTERRUPT] Breakpoint: {:?}", stack_frame);
 }
 
-extern "x86-interrupt" fn timer_interrupt_handler(_stack_frame: InterruptStackFrame) {
-    scheduler::tick();
+#[naked]
+pub extern "x86-interrupt" fn timer_interrupt_handler(_stack_frame: InterruptStackFrame) {
     unsafe {
-        PICS.lock().notify_end_of_interrupt(InterruptIndex::Timer as u8);
+        asm!(
+            "push rax",
+            "push rcx",
+            "push rdx",
+            "push rsi",
+            "push rdi",
+            "push rbp",
+            "push r8",
+            "push r9",
+            "push r10",
+            "push r11",
+            "push r12",
+            "push r13",
+            "push r14",
+            "push r15",
+            "mov rdi, rsp",
+            "call {scheduler_tick}",
+            "call {timer_eoi}",
+            "mov rsp, rax",
+            "pop r15",
+            "pop r14",
+            "pop r13",
+            "pop r12",
+            "pop r11",
+            "pop r10",
+            "pop r9",
+            "pop r8",
+            "pop rbp",
+            "pop rdi",
+            "pop rsi",
+            "pop rdx",
+            "pop rcx",
+            "pop rax",
+            "iretq",
+            scheduler_tick = sym crate::scheduler::scheduler_tick,
+            timer_eoi = sym timer_eoi,
+            options(noreturn),
+        );
+    }
+}
+
+#[no_mangle]
+extern "C" fn timer_eoi() {
+    use x86_64::instructions::port::Port;
+    unsafe {
+        let mut port = Port::new(0x20);
+        port.write(0x20u8);
     }
 }
 

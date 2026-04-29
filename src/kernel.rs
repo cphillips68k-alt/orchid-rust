@@ -1,4 +1,4 @@
-use crate::{console::kprintln, cpu, scheduler, task::Task};
+use crate::{console::kprintln, scheduler, task::Task};
 
 pub fn run() -> ! {
     scheduler::init();
@@ -8,7 +8,5 @@ pub fn run() -> ! {
 
     kprintln!("Kernel scheduler entering preemptive run loop");
 
-    loop {
-        cpu::halt_loop();
-    }
+    scheduler::start()
 }

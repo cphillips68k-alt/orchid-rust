@@ -7,8 +7,8 @@ Orchid is a hobby x86_64 microkernel written in Rust. It is designed to demonstr
 - `#![no_std]` kernel core
 - Bootloader-based x86_64 bare-metal target
 - VGA text console + COM1 serial output
-- Preemptive scheduler driven by timer interrupts
-- Cooperative task state machine with sleep/wake and IPC messages
+- Preemptive scheduler driven by timer interrupts with context switching
+- Stackful preemptive task execution and IPC-driven task interaction
 - Linked-list heap allocator for kernel heap allocations
 - PIC interrupt controller setup and timer IRQ handling
 
@@ -31,7 +31,7 @@ Orchid is a hobby x86_64 microkernel written in Rust. It is designed to demonstr
 
 ### Scheduling model
 
-The kernel uses a preemptive scheduler. A timer interrupt occurs periodically and executes a scheduler tick. Each tick runs a single runnable task for one step of its state machine, then moves to the next runnable task.
+The kernel uses a true preemptive scheduler with actual context switching. A timer interrupt occurs periodically, the kernel saves the current task stack state, chooses the next runnable task, and resumes execution from that task's saved stack context.
 
 ## Getting Started
 
