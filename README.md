@@ -53,7 +53,10 @@ cargo install bootimage
 ### Build
 
 ```bash
-RUSTFLAGS="-Zjson-target-spec" cargo +nightly bootimage
+RUSTFLAGS="-Zjson-target-spec" \
+CARGO_BUILD_RUSTFLAGS="-Zjson-target-spec" \
+CARGO_TARGET_X86_64_BLOG_OS_RUSTFLAGS="-Zjson-target-spec" \
+cargo +nightly bootimage
 ```
 
 Alternatively, use the provided script which handles this automatically:
