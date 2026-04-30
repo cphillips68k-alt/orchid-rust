@@ -12,7 +12,7 @@ serde_json = { version = "=1.0.128", default-features = false, features = ["allo
 bincode = { version = "2.0.0-rc.3", default-features = false, features = ["serde"] }
 
 # Explicitly pin bitvec to 1.0.0 to avoid the 1.0.1 doc macro mess
-bitvec = { version = "=1.0.1", default-features = false, features = ["alloc"] }
+bitvec = { version = "=1.0.0", default-features = false, features = ["alloc"] }
 
 # Standard kernel deps
 bootloader = "0.11"
@@ -30,3 +30,6 @@ panic = "abort"
 
 [profile.release]
 panic = "abort"
+
+[patch.crates-io]
+bitvec = { version = "=1.0.0", default-features = false, features = ["alloc"] }
